@@ -1,0 +1,37 @@
+{
+  "name": "wp-launchpad/hooks",
+  "description": "Hooks library for Launchpad framework",
+  "keywords": [
+    "wordpress"
+  ],
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "CrochetFeve0251"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "LaunchpadHooks\\": "inc/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "LaunchpadHooks\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "wp-launchpad/core": "^0.2"
+  },
+  "require-dev": {
+    "wp-media/phpunit": "^3.0",
+    "wp-launchpad/cli": "^1.0.2",
+    "wp-launchpad/phpunit-wp-hooks": "^1.0"
+  },
+  "scripts": {
+    "test-unit": "\"vendor/bin/phpunit\" --testsuite unit --colors=always --configuration tests/Unit/phpunit.xml.dist",
+    "run-tests": [
+      "@test-unit"
+    ]
+  }
+}
