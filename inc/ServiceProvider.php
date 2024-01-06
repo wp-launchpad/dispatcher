@@ -5,8 +5,7 @@ namespace LaunchpadHooks;
 use LaunchpadCore\Container\AbstractServiceProvider;
 use LaunchpadCore\Container\HasInflectorInterface;
 use LaunchpadCore\Container\InflectorServiceProviderTrait;
-use LaunchpadHooks\Interfaces\ActionAwareInterface;
-use LaunchpadHooks\Interfaces\FilterAwareInterface;
+use LaunchpadHooks\Interfaces\DispatcherAwareInterface;
 
 class ServiceProvider extends AbstractServiceProvider implements HasInflectorInterface
 {
@@ -14,25 +13,18 @@ class ServiceProvider extends AbstractServiceProvider implements HasInflectorInt
 
     protected function define()
     {
-        $this->register_service(Filter::class);
-        $this->register_service(Action::class);
+        $this->register_service(Dispatcher::class);
     }
 
     public function get_inflectors(): array
     {
         return [
-            FilterAwareInterface::class => [
-                'method' => 'set_filter',
+            DispatcherAwareInterface::class => [
+                'method' => 'set_dispatcher',
                 'args' => [
-                    Filter::class
+                    Dispatcher::class
                 ]
             ],
-            ActionAwareInterface::class => [
-                'method' => 'set_action',
-                'args' => [
-                    Action::class
-                ]
-            ]
         ];
     }
 

@@ -1,5 +1,6 @@
 <?php
 namespace Launchpad\Tests\Integration;
+use WPMedia\PHPUnit\BootstrapManager;
 
 define( 'LAUNCHPAD_PLUGIN_ROOT', dirname( dirname( __DIR__ ) ) . DIRECTORY_SEPARATOR );
 define( 'LAUNCHPAD_TESTS_FIXTURES_DIR', dirname( __DIR__ ) . '/Fixtures' );
@@ -16,6 +17,10 @@ use League\Container\Container;
 tests_add_filter(
     'muplugins_loaded',
     function() {
+
+        if ( BootstrapManager::isGroup( '' ) ) {
+            // TODO: add your logic from .
+        }
 
         $plugin = new Plugin(new Container(), new EventManager(), new SubscriberWrapper('test'));
         $plugin->load([

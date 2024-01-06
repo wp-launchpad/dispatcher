@@ -1,13 +1,14 @@
 <?php
 
-namespace LaunchpadHooks\Tests\Integration\inc\Filter;
+namespace LaunchpadHooks\Tests\Integration\inc\Dispatcher;
 
-use LaunchpadHooks\Filter;
-use LaunchpadHooks\SanitizerInterface;
+use LaunchpadHooks\Dispatcher;
+use LaunchpadHooks\Interfaces\SanitizerInterface;
 use LaunchpadHooks\Tests\Integration\TestCase;
+use LaunchpadHooks\Traits\IsDefault;
 
 /**
- * @covers \LaunchpadHooks\Filter::apply_filters
+ * @covers \LaunchpadHooks\Dispatcher::apply_filters
  */
 class Test_applyFilters extends TestCase {
 
@@ -19,9 +20,9 @@ class Test_applyFilters extends TestCase {
     public function testShouldReturnAsExpected( $config, $expected )
     {
         $this->configs = $config;
-        $filter = $this->get_container()->get(Filter::class);
+        $filter = $this->get_container()->get(Dispatcher::class);
         $this->assertSame($expected, $filter->apply_filters('test', new class implements SanitizerInterface {
-
+            use IsDefault;
             public function sanitize($value)
             {
                 if('invalid' === $value) {
@@ -29,11 +30,6 @@ class Test_applyFilters extends TestCase {
                 }
 
                 return (int) $value;
-            }
-
-            public function get_default()
-            {
-                return 'default';
             }
         }, $config['initial_value']));
     }

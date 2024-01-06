@@ -2,16 +2,17 @@
 return [
     'shouldReturnFilter' => [
         'config' => [
-              'initial_value' => 'initial_value',
-              'value' => 'value',
+            'initial_value' => true,
+            'value' => false,
         ],
-        'expected' => 0,
+        'expected' => false,
     ],
     'invalidShouldReturnDefault' => [
         'config' => [
-            'initial_value' => 'initial_value',
+            'initial_value' => true,
             'value' => 'invalid',
         ],
-        'expected' => 'default',
+        'expected' => true,
     ],
+
 ];
