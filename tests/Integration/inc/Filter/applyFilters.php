@@ -41,7 +41,7 @@ class Test_applyFilters extends TestCase {
     /**
      * @hook test
      */
-    public function test_callback()
+    public function filter_callback()
     {
         return $this->configs['value'];
     }
