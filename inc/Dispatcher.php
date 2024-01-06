@@ -3,8 +3,10 @@
 namespace LaunchpadHooks;
 
 use LaunchpadHooks\Interfaces\SanitizerInterface;
+use LaunchpadHooks\Sanitizers\BoolSanitizer;
+use LaunchpadHooks\Sanitizers\FloatSanitizer;
+use LaunchpadHooks\Sanitizers\IntSanitizer;
 use LaunchpadHooks\Sanitizers\StringSanitizer;
-use LaunchpadHooks\Traits\IsDefault;
 
 class Dispatcher
 {
@@ -33,40 +35,16 @@ class Dispatcher
 
     public function apply_bool_filters(string $name, bool $default, ...$parameters): bool
     {
-        return $this->apply_filters($name, new class implements SanitizerInterface {
-
-            use IsDefault;
-
-            public function sanitize($value)
-            {
-                return (bool) $value;
-            }
-
-        }, $default, ...$parameters);
+        return $this->apply_filters($name, new BoolSanitizer(), $default, ...$parameters);
     }
 
     public function apply_int_filters(string $name, int $default, ...$parameters): int
     {
-        return $this->apply_filters($name, new class implements SanitizerInterface {
-            use IsDefault;
-
-            public function sanitize($value)
-            {
-                return (int) $value;
-            }
-        }, $default, ...$parameters);
+        return $this->apply_filters($name, new IntSanitizer(), $default, ...$parameters);
     }
 
     public function apply_float_filters(string $name, float $default, ...$parameters): float
     {
-        return $this->apply_filters($name, new class implements SanitizerInterface {
-            use IsDefault;
-
-            public function sanitize($value)
-            {
-                return (float) $value;
-            }
-
-        }, $default, ...$parameters);
+        return $this->apply_filters($name, new FloatSanitizer(), $default, ...$parameters);
     }
 }
