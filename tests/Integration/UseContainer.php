@@ -1,6 +1,6 @@
 <?php
 
-namespace LaunchpadHooks\Tests\Integration;
+namespace LaunchpadDispatcher\Tests\Integration;
 
 use League\Container\Container;
 use Psr\Container\ContainerInterface;

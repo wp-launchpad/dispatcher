@@ -1,12 +1,12 @@
 <?php
 
-namespace LaunchpadHooks;
+namespace LaunchpadDispatcher;
 
-use LaunchpadHooks\Interfaces\SanitizerInterface;
-use LaunchpadHooks\Sanitizers\BoolSanitizer;
-use LaunchpadHooks\Sanitizers\FloatSanitizer;
-use LaunchpadHooks\Sanitizers\IntSanitizer;
-use LaunchpadHooks\Sanitizers\StringSanitizer;
+use LaunchpadDispatcher\Interfaces\SanitizerInterface;
+use LaunchpadDispatcher\Sanitizers\BoolSanitizer;
+use LaunchpadDispatcher\Sanitizers\FloatSanitizer;
+use LaunchpadDispatcher\Sanitizers\IntSanitizer;
+use LaunchpadDispatcher\Sanitizers\StringSanitizer;
 
 class Dispatcher
 {

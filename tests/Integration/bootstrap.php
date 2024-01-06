@@ -10,7 +10,7 @@ define( 'LAUNCHPAD_IS_TESTING', true );
 use LaunchpadCore\EventManagement\EventManager;
 use LaunchpadCore\EventManagement\Wrapper\SubscriberWrapper;
 use LaunchpadCore\Plugin;
-use LaunchpadHooks\ServiceProvider;
+use LaunchpadDispatcher\ServiceProvider;
 use League\Container\Container;
 
 // Manually load the plugin being tested.

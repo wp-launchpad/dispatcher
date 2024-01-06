@@ -1,6 +1,6 @@
 <?php
 
-namespace LaunchpadHooks\Interfaces;
+namespace LaunchpadDispatcher\Interfaces;
 
 interface SanitizerInterface
 {

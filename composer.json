@@ -1,6 +1,6 @@
 {
-  "name": "wp-launchpad/hooks",
-  "description": "Hooks library for Launchpad framework",
+  "name": "wp-launchpad/dispatcher",
+  "description": "Dispatcher library for Launchpad framework",
   "keywords": [
     "wordpress"
   ],
@@ -12,12 +12,12 @@
   ],
   "autoload": {
     "psr-4": {
-      "LaunchpadHooks\\": "inc/"
+      "LaunchpadDispatcher\\": "inc/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "LaunchpadHooks\\Tests\\": "tests/"
+      "LaunchpadDispatcher\\Tests\\": "tests/"
     }
   },
   "require": {

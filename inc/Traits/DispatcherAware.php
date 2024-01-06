@@ -1,8 +1,8 @@
 <?php
 
-namespace LaunchpadHooks\Traits;
+namespace LaunchpadDispatcher\Traits;
 
-use LaunchpadHooks\Dispatcher;
+use LaunchpadDispatcher\Dispatcher;
 
 trait DispatcherAware
 {

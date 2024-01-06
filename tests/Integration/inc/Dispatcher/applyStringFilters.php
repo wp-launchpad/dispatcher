@@ -1,12 +1,12 @@
 <?php
 
-namespace LaunchpadHooks\Tests\Integration\inc\Dispatcher;
+namespace LaunchpadDispatcher\Tests\Integration\inc\Dispatcher;
 
-use LaunchpadHooks\Dispatcher;
-use LaunchpadHooks\Tests\Integration\TestCase;
+use LaunchpadDispatcher\Dispatcher;
+use LaunchpadDispatcher\Tests\Integration\TestCase;
 
 /**
- * @covers \LaunchpadHooks\Dispatcher::apply_string_filters
+ * @covers \LaunchpadDispatcher\Dispatcher::apply_string_filters
  */
 class Test_applyStringFilters extends TestCase {
 

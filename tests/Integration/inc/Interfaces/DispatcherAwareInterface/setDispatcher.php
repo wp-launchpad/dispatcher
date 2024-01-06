@@ -1,14 +1,14 @@
 <?php
 
-namespace LaunchpadHooks\Tests\Integration\inc\Interfaces\DispatcherAwareInterface;
+namespace LaunchpadDispatcher\Tests\Integration\inc\Interfaces\DispatcherAwareInterface;
 
-use LaunchpadHooks\Dispatcher;
-use LaunchpadHooks\Tests\Integration\inc\Interfaces\DispatcherAwareInterface\classes\DispatcherAwareClass;
-use LaunchpadHooks\Tests\Integration\TestCase;
+use LaunchpadDispatcher\Dispatcher;
+use LaunchpadDispatcher\Tests\Integration\inc\Interfaces\DispatcherAwareInterface\classes\DispatcherAwareClass;
+use LaunchpadDispatcher\Tests\Integration\TestCase;
 use ReflectionClass;
 
 /**
- * @covers \LaunchpadHooks\Interfaces\DispatcherAwareInterface::set_dispatcher
+ * @covers \LaunchpadDispatcher\Interfaces\DispatcherAwareInterface::set_dispatcher
  */
 class Test_setDispatcher extends TestCase {
 

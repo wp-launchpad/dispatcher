@@ -1,6 +1,6 @@
 <?php
 
-namespace LaunchpadHooks\Tests\Integration;
+namespace LaunchpadDispatcher\Tests\Integration;
 use ReflectionObject;
 use WPLaunchpadPHPUnitWPHooks\MockHooks;
 use WPMedia\PHPUnit\Integration\TestCase as BaseTestCase;

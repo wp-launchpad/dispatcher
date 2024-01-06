@@ -1,6 +1,6 @@
 <?php
 
-namespace LaunchpadHooks\Traits;
+namespace LaunchpadDispatcher\Traits;
 
 trait IsDefault
 {

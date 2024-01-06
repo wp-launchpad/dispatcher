@@ -1,12 +1,12 @@
 <?php
 
-namespace LaunchpadHooks\Tests\Integration\inc\Dispatcher;
+namespace LaunchpadDispatcher\Tests\Integration\inc\Dispatcher;
 
-use LaunchpadHooks\Dispatcher;
-use LaunchpadHooks\Tests\Integration\TestCase;
+use LaunchpadDispatcher\Dispatcher;
+use LaunchpadDispatcher\Tests\Integration\TestCase;
 
 /**
- * @covers \LaunchpadHooks\Dispatcher::add_deprecated_filter
+ * @covers \LaunchpadDispatcher\Dispatcher::add_deprecated_filter
  */
 class Test_addDeprecatedFilter extends TestCase {
 

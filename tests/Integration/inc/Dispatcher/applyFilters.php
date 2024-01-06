@@ -1,14 +1,14 @@
 <?php
 
-namespace LaunchpadHooks\Tests\Integration\inc\Dispatcher;
+namespace LaunchpadDispatcher\Tests\Integration\inc\Dispatcher;
 
-use LaunchpadHooks\Dispatcher;
-use LaunchpadHooks\Interfaces\SanitizerInterface;
-use LaunchpadHooks\Tests\Integration\TestCase;
-use LaunchpadHooks\Traits\IsDefault;
+use LaunchpadDispatcher\Dispatcher;
+use LaunchpadDispatcher\Interfaces\SanitizerInterface;
+use LaunchpadDispatcher\Tests\Integration\TestCase;
+use LaunchpadDispatcher\Traits\IsDefault;
 
 /**
- * @covers \LaunchpadHooks\Dispatcher::apply_filters
+ * @covers \LaunchpadDispatcher\Dispatcher::apply_filters
  */
 class Test_applyFilters extends TestCase {
 

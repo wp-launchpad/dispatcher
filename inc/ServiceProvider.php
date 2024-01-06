@@ -1,11 +1,11 @@
 <?php
 
-namespace LaunchpadHooks;
+namespace LaunchpadDispatcher;
 
 use LaunchpadCore\Container\AbstractServiceProvider;
 use LaunchpadCore\Container\HasInflectorInterface;
 use LaunchpadCore\Container\InflectorServiceProviderTrait;
-use LaunchpadHooks\Interfaces\DispatcherAwareInterface;
+use LaunchpadDispatcher\Interfaces\DispatcherAwareInterface;
 
 class ServiceProvider extends AbstractServiceProvider implements HasInflectorInterface
 {

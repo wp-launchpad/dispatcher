@@ -1,8 +1,8 @@
 <?php
 
-namespace LaunchpadHooks\Interfaces;
+namespace LaunchpadDispatcher\Interfaces;
 
-use LaunchpadHooks\Dispatcher;
+use LaunchpadDispatcher\Dispatcher;
 
 interface DispatcherAwareInterface
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace LaunchpadHooks\Sanitizers;
+namespace LaunchpadDispatcher\Sanitizers;
 
-use LaunchpadHooks\Interfaces\SanitizerInterface;
-use LaunchpadHooks\Traits\IsDefault;
+use LaunchpadDispatcher\Interfaces\SanitizerInterface;
+use LaunchpadDispatcher\Traits\IsDefault;
 
 class FloatSanitizer implements SanitizerInterface {
     use IsDefault;
