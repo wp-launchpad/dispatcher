@@ -4,11 +4,13 @@ namespace LaunchpadDispatcher\Tests\Integration\inc\Dispatcher;
 
 use LaunchpadDispatcher\Dispatcher;
 use LaunchpadDispatcher\Tests\Integration\TestCase;
+use LaunchpadDispatcher\Tests\Integration\Traits\SetupDispatcherTrait;
 
 /**
  * @covers \LaunchpadDispatcher\Dispatcher::apply_string_filters
  */
 class Test_applyStringFilters extends TestCase {
+    use SetupDispatcherTrait;
 
     protected $configs;
 
@@ -18,8 +20,8 @@ class Test_applyStringFilters extends TestCase {
     public function testShouldReturnAsExpected( $config, $expected )
     {
         $this->configs = $config;
-        $filter = $this->get_container()->get(Dispatcher::class);
-        $this->assertSame($expected, $filter->apply_string_filters('test', $config['initial_value']));
+        $dispatcher = $this->setup_dispatcher();
+        $this->assertSame($expected, $dispatcher->apply_string_filters('test', $config['initial_value']));
     }
 
     /**

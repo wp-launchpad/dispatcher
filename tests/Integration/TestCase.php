@@ -7,11 +7,10 @@ use WPMedia\PHPUnit\Integration\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    use MockHooks, UseContainer;
+    use MockHooks;
 
     protected $config;
 
-    protected $prefix;
     protected static $transients = [];
 
     public static function set_up_before_class()
@@ -46,7 +45,6 @@ abstract class TestCase extends BaseTestCase
             $this->loadTestDataConfig();
         }
 
-        $this->prefix = $this->get_container()->get('prefix');
         $this->mockHooks();
     }
 
@@ -73,11 +71,6 @@ abstract class TestCase extends BaseTestCase
         $filename = $obj->getFileName();
 
         $this->config = $this->getTestData(dirname($filename), basename($filename, '.php'));
-    }
-
-    public function getPrefix(): string
-    {
-        return $this->prefix;
     }
 
     public function getCurrentTest(): string
