@@ -4,11 +4,13 @@ namespace LaunchpadDispatcher\Tests\Integration\inc\Dispatcher;
 
 use LaunchpadDispatcher\Dispatcher;
 use LaunchpadDispatcher\Tests\Integration\TestCase;
+use LaunchpadDispatcher\Tests\Integration\Traits\SetupDispatcherTrait;
 
 /**
  * @covers \LaunchpadDispatcher\Dispatcher::do_action
  */
 class Test_doAction extends TestCase {
+    use SetupDispatcherTrait;
 
 
     protected $called = false;
@@ -16,7 +18,7 @@ class Test_doAction extends TestCase {
     public function testShouldDoAsExpected()
     {
         $this->called = false;
-        $dispatcher = $this->get_container()->get(Dispatcher::class);
+        $dispatcher = $this->setup_dispatcher();
         $dispatcher->do_action('test');
         $this->assertTrue($this->called);
     }
