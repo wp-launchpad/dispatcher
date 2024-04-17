@@ -5,26 +5,25 @@ namespace LaunchpadDispatcher\Sanitizers;
 use LaunchpadDispatcher\Interfaces\SanitizerInterface;
 use LaunchpadDispatcher\Traits\IsDefault;
 
-class StringSanitizer implements SanitizerInterface
-{
-    use IsDefault;
+class StringSanitizer implements SanitizerInterface {
 
-    /**
-     * Sanitize the value.
-     *
-     * @param mixed $value Value to sanitize.
-     * @return mixed
-     */
-    public function sanitize($value)
-    {
-        if ( is_object($value) && ! method_exists($value, '__toString')) {
-            return false;
-        }
+	use IsDefault;
 
-        if (is_array($value)) {
-            return false;
-        }
+	/**
+	 * Sanitize the value.
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return mixed
+	 */
+	public function sanitize( $value ) {
+		if ( is_object( $value ) && ! method_exists( $value, '__toString' ) ) {
+			return false;
+		}
 
-        return (string) $value;
-    }
+		if ( is_array( $value ) ) {
+			return false;
+		}
+
+		return (string) $value;
+	}
 }
