@@ -13,7 +13,7 @@ class BoolSanitizer implements SanitizerInterface {
 	 * Sanitize the value.
 	 *
 	 * @param mixed $value Value to sanitize.
-	 * @return mixed
+	 * @return bool
 	 */
 	public function sanitize( $value ) {
 		return (bool) $value;
