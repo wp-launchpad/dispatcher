@@ -6,12 +6,19 @@ use LaunchpadDispatcher\Interfaces\SanitizerInterface;
 
 class SafeSanitizer implements SanitizerInterface
 {
+    /**
+     * Original value from the filter.
+     *
+     * @var string
+     */
     protected $original_type;
 
     /**
-     * @param $original_type
+     * Instantiate sanitizer.
+     *
+     * @param string $original_type Original value from the filter.
      */
-    public function __construct($original_type)
+    public function __construct( string $original_type)
     {
         $this->original_type = $original_type;
     }

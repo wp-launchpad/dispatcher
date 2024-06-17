@@ -39,6 +39,14 @@ class Dispatcher {
 		do_action( $name, ...$context );
 	}
 
+    /**
+     * Apply filters while making sure the output value is always the right type.
+     *
+     * @param string $name Name from the filter.
+     * @param mixed $default_value Default value from the filter.
+     * @param array ...$context Context from the filter.
+     * @return mixed
+     */
     public function apply_safe_filters( string $name, $default_value, ...$context )
     {
         $original_type = gettype($default_value);
