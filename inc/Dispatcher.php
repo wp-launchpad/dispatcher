@@ -6,6 +6,7 @@ use LaunchpadDispatcher\Interfaces\SanitizerInterface;
 use LaunchpadDispatcher\Sanitizers\BoolSanitizer;
 use LaunchpadDispatcher\Sanitizers\FloatSanitizer;
 use LaunchpadDispatcher\Sanitizers\IntSanitizer;
+use LaunchpadDispatcher\Sanitizers\SafeSanitizer;
 use LaunchpadDispatcher\Sanitizers\StringSanitizer;
 
 class Dispatcher {
@@ -29,14 +30,20 @@ class Dispatcher {
 	 *
 	 * @param string $name Name from the action.
 	 *
-	 * @param array  ...$parameters Parameters from the action.
+	 * @param array  ...$context Context from the action.
 	 *
 	 * @return void
 	 */
-	public function do_action( string $name, ...$parameters ) {
-		$this->call_deprecated_actions( $name, ...$parameters );
-		do_action( $name, ...$parameters );
+	public function do_action( string $name, ...$context ) {
+		$this->call_deprecated_actions( $name, ...$context );
+		do_action( $name, ...$context );
 	}
+
+    public function apply_safe_filters( string $name, $default_value, ...$context )
+    {
+        $original_type = gettype($default_value);
+        return $this->apply_filters( $name, new SafeSanitizer($original_type), $default_value, ...$context );
+    }
 
 	/**
 	 * Apply filters.
@@ -44,13 +51,13 @@ class Dispatcher {
 	 * @param string             $name Name from the filter.
 	 * @param SanitizerInterface $sanitizer Sanitizer from the filter.
 	 * @param mixed              $default_value Default value from the filter.
-	 * @param array              ...$parameters Parameters.
+	 * @param array              ...$context Context from the filter.
 	 * @return mixed
 	 */
-	public function apply_filters( string $name, SanitizerInterface $sanitizer, $default_value, ...$parameters ) {
-		$result_deprecated = $this->call_deprecated_filters( $name, $default_value, ...$parameters );
+	public function apply_filters( string $name, SanitizerInterface $sanitizer, $default_value, ...$context ) {
+		$result_deprecated = $this->call_deprecated_filters( $name, $default_value, ...$context );
 
-		$result = apply_filters( $name, $result_deprecated, ...$parameters );
+		$result = apply_filters( $name, $result_deprecated, ...$context );
 
 		$sanitized_result = $sanitizer->sanitize( $result );
 
@@ -66,11 +73,11 @@ class Dispatcher {
 	 *
 	 * @param string $name Name from the filter.
 	 * @param string $default_value Default value from the filter.
-	 * @param array  ...$parameters Parameters.
+	 * @param array  ...$context Context from the filter.
 	 * @return string
 	 */
-	public function apply_string_filters( string $name, string $default_value, ...$parameters ): string {
-		return $this->apply_filters( $name, new StringSanitizer(), $default_value, ...$parameters );
+	public function apply_string_filters( string $name, string $default_value, ...$context ): string {
+		return $this->apply_filters( $name, new StringSanitizer(), $default_value, ...$context );
 	}
 
 	/**
@@ -78,11 +85,11 @@ class Dispatcher {
 	 *
 	 * @param string $name Name from the filter.
 	 * @param bool   $default_value Default value from the filter.
-	 * @param array  ...$parameters Parameters.
+	 * @param array  ...$context Context from the filter.
 	 * @return bool
 	 */
-	public function apply_bool_filters( string $name, bool $default_value, ...$parameters ): bool {
-		return $this->apply_filters( $name, new BoolSanitizer(), $default_value, ...$parameters );
+	public function apply_bool_filters( string $name, bool $default_value, ...$context ): bool {
+		return $this->apply_filters( $name, new BoolSanitizer(), $default_value, ...$context );
 	}
 
 	/**
@@ -90,11 +97,11 @@ class Dispatcher {
 	 *
 	 * @param string $name Name from the filter.
 	 * @param int    $default_value Default value from the filter.
-	 * @param array  ...$parameters Parameters.
+	 * @param array  ...$context Context from the filter.
 	 * @return int
 	 */
-	public function apply_int_filters( string $name, int $default_value, ...$parameters ): int {
-		return $this->apply_filters( $name, new IntSanitizer(), $default_value, ...$parameters );
+	public function apply_int_filters( string $name, int $default_value, ...$context ): int {
+		return $this->apply_filters( $name, new IntSanitizer(), $default_value, ...$context );
 	}
 
 	/**
@@ -102,11 +109,11 @@ class Dispatcher {
 	 *
 	 * @param string $name Name from the filter.
 	 * @param float  $default_value Default value from the filter.
-	 * @param array  ...$parameters Parameters.
+	 * @param array  ...$context Context from the filter.
 	 * @return float
 	 */
-	public function apply_float_filters( string $name, float $default_value, ...$parameters ): float {
-		return $this->apply_filters( $name, new FloatSanitizer(), $default_value, ...$parameters );
+	public function apply_float_filters( string $name, float $default_value, ...$context ): float {
+		return $this->apply_filters( $name, new FloatSanitizer(), $default_value, ...$context );
 	}
 
 	/**
@@ -147,18 +154,18 @@ class Dispatcher {
 	 * Call deprecated actions from an action.
 	 *
 	 * @param string $name Name from the current action.
-	 * @param array  ...$parameters Parameters from the current action.
+	 * @param array  ...$context Context from the current action.
 	 *
 	 * @return void
 	 */
-	protected function call_deprecated_actions( string $name, ...$parameters ) {
+	protected function call_deprecated_actions( string $name, ...$context ) {
 		if ( ! key_exists( $name, $this->deprecated_actions ) ) {
 			return;
 		}
 
 		foreach ( $this->deprecated_actions[ $name ] as $action ) {
-			do_action_deprecated( $action['name'], $parameters, $action['version'], $name, $action['message'] );
-			$this->call_deprecated_actions( $action['name'], ...$parameters );
+			do_action_deprecated( $action['name'], $context, $action['version'], $name, $action['message'] );
+			$this->call_deprecated_actions( $action['name'], ...$context );
 		}
 	}
 
@@ -167,19 +174,19 @@ class Dispatcher {
 	 *
 	 * @param string $name Name from the current filter.
 	 * @param mixed  $default_value Default value from the current filter.
-	 * @param array  ...$parameters Parameters from the current filter.
+	 * @param array  ...$context Context from the current filter.
 	 *
 	 * @return mixed
 	 */
-	protected function call_deprecated_filters( string $name, $default_value, ...$parameters ) {
+	protected function call_deprecated_filters( string $name, $default_value, ...$context ) {
 		if ( ! key_exists( $name, $this->deprecated_filters ) ) {
 			return $default_value;
 		}
 
 		foreach ( $this->deprecated_filters[ $name ] as $filter ) {
-			$filter_parameters = array_merge( [ $default_value ], $parameters );
+			$filter_parameters = array_merge( [ $default_value ], $context );
 			$default_value     = apply_filters_deprecated( $filter['name'], $filter_parameters, $filter['version'], $name, $filter['message'] );
-			$default_value     = $this->call_deprecated_filters( $filter['name'], $default_value, ...$parameters );
+			$default_value     = $this->call_deprecated_filters( $filter['name'], $default_value, ...$context );
 		}
 
 		return $default_value;
