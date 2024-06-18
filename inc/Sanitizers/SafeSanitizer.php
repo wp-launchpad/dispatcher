@@ -13,6 +13,8 @@ class SafeSanitizer implements SanitizerInterface
      */
     protected $original_type;
 
+    protected $invalid = false;
+
     /**
      * Instantiate sanitizer.
      *
@@ -30,6 +32,7 @@ class SafeSanitizer implements SanitizerInterface
     public function sanitize($value)
     {
         if( $this->original_type !== gettype($value) ) {
+            $this->invalid = true;
             return false;
         }
 
@@ -41,6 +44,6 @@ class SafeSanitizer implements SanitizerInterface
      */
     public function is_default($value, $original): bool
     {
-        return $this->original_type !== gettype($value);
+        return $this->invalid;
     }
 }
