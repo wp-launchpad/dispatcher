@@ -4,46 +4,55 @@ namespace LaunchpadDispatcher\Sanitizers;
 
 use LaunchpadDispatcher\Interfaces\SanitizerInterface;
 
-class SafeSanitizer implements SanitizerInterface
-{
-    /**
-     * Original value from the filter.
-     *
-     * @var string
-     */
-    protected $original_type;
+class SafeSanitizer implements SanitizerInterface {
 
-    protected $invalid = false;
+	/**
+	 * Original value from the filter.
+	 *
+	 * @var string
+	 */
+	protected $original_type;
 
-    /**
-     * Instantiate sanitizer.
-     *
-     * @param string $original_type Original value from the filter.
-     */
-    public function __construct( string $original_type)
-    {
-        $this->original_type = $original_type;
-    }
+	/**
+	 * Is the value invalid.
+	 *
+	 * @var bool
+	 */
+	protected $invalid = false;
+
+	/**
+	 * Instantiate sanitizer.
+	 *
+	 * @param string $original_type Original value from the filter.
+	 */
+	public function __construct( string $original_type ) {
+		$this->original_type = $original_type;
+	}
 
 
-    /**
-     * @inheritDoc
-     */
-    public function sanitize($value)
-    {
-        if( $this->original_type !== gettype($value) ) {
-            $this->invalid = true;
-            return false;
-        }
+	/**
+	 * Sanitize the value.
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return mixed
+	 */
+	public function sanitize( $value ) {
+		if ( gettype( $value ) !== $this->original_type ) {
+			$this->invalid = true;
+			return false;
+		}
 
-        return $value;
-    }
+		return $value;
+	}
 
-    /**
-     * @inheritDoc
-     */
-    public function is_default($value, $original): bool
-    {
-        return $this->invalid;
-    }
+	/**
+	 * Is the value the default one.
+	 *
+	 * @param mixed $value Actual value.
+	 * @param mixed $original Original value.
+	 * @return bool
+	 */
+	public function is_default( $value, $original ): bool {
+		return $this->invalid;
+	}
 }
