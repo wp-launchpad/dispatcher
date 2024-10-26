@@ -25,8 +25,8 @@
   },
   "require-dev": {
     "wp-media/phpunit": "^3.0",
-    "wp-launchpad/cli": "^1.0.2",
-    "wp-launchpad/phpunit-wp-hooks": "^1.0",
+    "wp-launchpad/cli": "^1.0.2 || @dev",
+    "wp-launchpad/phpunit-wp-hooks": "^1.0 || @dev",
     "wp-coding-standards/wpcs": "^3",
     "phpcompatibility/phpcompatibility-wp": "^2.0",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0"
